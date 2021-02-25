@@ -15,7 +15,7 @@ async def mask(ctx, id):
 		response = requests.request("GET", url, params=querystring)
 		json_resp = json.loads(response.text)
 		last_sale = json_resp["assets"][0]["last_sale"]
-		embed = discord.Embed(title="HashMask id "+ str(id) + "", description="", color=0xf2ff00, inline=True)
+		embed = discord.Embed(title="HashMask id "+ str(id) + " " + json_resp["assets"][0]["name"], description="", color=0xf2ff00, inline=True)
 		embed.set_image(url=json_resp["assets"][0]["image_thumbnail_url"])
 		if last_sale is None:
 			last_sale = "No informations found"
