@@ -5,23 +5,17 @@ import asyncio
 import json
 
 
-
 bot = commands.Bot(command_prefix='#', case_insensitive=True)
 
 @bot.command()
 async def mask(ctx, id):
 	try:
 		url = "https://api.opensea.io/api/v1/assets"
-
 		querystring = {"asset_contract_address":"0xc2c747e0f7004f9e8817db2ca4997657a7746928", "token_ids":"%s"%(str(id))}
-
 		response = requests.request("GET", url, params=querystring)
 		json_resp = json.loads(response.text)
-		
 		last_sale = json_resp["assets"][0]["last_sale"]
-
 		embed = discord.Embed(title="HashMask id "+ str(id) + "", description="", color=0xf2ff00, inline=True)
-		
 		embed.set_image(url=json_resp["assets"][0]["image_thumbnail_url"])
 		if last_sale is None:
 			last_sale = "No informations found"
@@ -37,7 +31,6 @@ async def mask(ctx, id):
 		await ctx.send(embed=embed)
 	except:
 		embed = discord.Embed(title="Error", description="Something wrong happened, try again! ", color=0xf2ff00)
-                #embed.add_field(name="Result", value="Other details", inline = True)
 		await ctx.send(embed=embed)
 
 '''
